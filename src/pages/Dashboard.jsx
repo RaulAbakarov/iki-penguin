@@ -7,6 +7,10 @@ import '../styles/dashboard.css'
 // September 16, 2025 - the day we first met
 const START_DATE = new Date('2025-09-16T00:00:00')
 
+// Birthday dates (month is 0-indexed)
+const RAUL_BIRTHDAY = { month: 7, day: 7 } // August 7th
+const ATILLA_BIRTHDAY = { month: 11, day: 29 } // December 29th
+
 function calculateTimeSince(startDate) {
   const now = new Date()
   const diff = now - startDate
@@ -23,11 +27,35 @@ function calculateTimeSince(startDate) {
   return { months, days, hours, minutes, seconds }
 }
 
+function calculateBirthdayCountdown(birthdayMonth, birthdayDay) {
+  const now = new Date()
+  const currentYear = now.getFullYear()
+  
+  // Try this year's birthday first
+  let nextBirthday = new Date(currentYear, birthdayMonth, birthdayDay, 0, 0, 0)
+  
+  // If birthday has passed this year, use next year
+  if (now > nextBirthday) {
+    nextBirthday = new Date(currentYear + 1, birthdayMonth, birthdayDay, 0, 0, 0)
+  }
+  
+  const diff = nextBirthday - now
+  
+  const seconds = Math.floor(diff / 1000) % 60
+  const minutes = Math.floor(diff / (1000 * 60)) % 60
+  const hours = Math.floor(diff / (1000 * 60 * 60)) % 24
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+  
+  return { days, hours, minutes, seconds }
+}
+
 function Dashboard() {
   const navigate = useNavigate()
   const { identity, clearIdentity, getQuestionsForMe, getMyQuestions, loading, refreshData, isOnline, messages, sendMessage, streak } = useApp()
   const { t } = useLanguage()
   const [timeSince, setTimeSince] = useState(calculateTimeSince(START_DATE))
+  const [raulBirthday, setRaulBirthday] = useState(calculateBirthdayCountdown(RAUL_BIRTHDAY.month, RAUL_BIRTHDAY.day))
+  const [atillaBirthday, setAtillaBirthday] = useState(calculateBirthdayCountdown(ATILLA_BIRTHDAY.month, ATILLA_BIRTHDAY.day))
   const [message, setMessage] = useState('Fuck you')
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState('Fuck you')
@@ -35,6 +63,8 @@ function Dashboard() {
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeSince(calculateTimeSince(START_DATE))
+      setRaulBirthday(calculateBirthdayCountdown(RAUL_BIRTHDAY.month, RAUL_BIRTHDAY.day))
+      setAtillaBirthday(calculateBirthdayCountdown(ATILLA_BIRTHDAY.month, ATILLA_BIRTHDAY.day))
     }, 1000)
     return () => clearInterval(interval)
   }, [])
@@ -133,6 +163,61 @@ function Dashboard() {
             <span>{t('hours')}</span>
             <span>{t('min')}</span>
             <span>{t('sec')}</span>
+          </div>
+        </div>
+
+        {/* Birthday Countdowns */}
+        <div className="birthday-countdowns">
+          <div className="birthday-timer raul">
+            <span className="birthday-emoji">🐧</span>
+            <p className="birthday-label">Raul's Birthday</p>
+            <div className="birthday-display">
+              <div className="birthday-unit">
+                <span className="birthday-value">{raulBirthday.days}</span>
+                <span className="birthday-unit-label">days</span>
+              </div>
+              <span className="birthday-separator">:</span>
+              <div className="birthday-unit">
+                <span className="birthday-value">{String(raulBirthday.hours).padStart(2, '0')}</span>
+                <span className="birthday-unit-label">hrs</span>
+              </div>
+              <span className="birthday-separator">:</span>
+              <div className="birthday-unit">
+                <span className="birthday-value">{String(raulBirthday.minutes).padStart(2, '0')}</span>
+                <span className="birthday-unit-label">min</span>
+              </div>
+              <span className="birthday-separator">:</span>
+              <div className="birthday-unit">
+                <span className="birthday-value">{String(raulBirthday.seconds).padStart(2, '0')}</span>
+                <span className="birthday-unit-label">sec</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="birthday-timer atilla">
+            <span className="birthday-emoji">🐧</span>
+            <p className="birthday-label">Atilla's Birthday</p>
+            <div className="birthday-display">
+              <div className="birthday-unit">
+                <span className="birthday-value">{atillaBirthday.days}</span>
+                <span className="birthday-unit-label">days</span>
+              </div>
+              <span className="birthday-separator">:</span>
+              <div className="birthday-unit">
+                <span className="birthday-value">{String(atillaBirthday.hours).padStart(2, '0')}</span>
+                <span className="birthday-unit-label">hrs</span>
+              </div>
+              <span className="birthday-separator">:</span>
+              <div className="birthday-unit">
+                <span className="birthday-value">{String(atillaBirthday.minutes).padStart(2, '0')}</span>
+                <span className="birthday-unit-label">min</span>
+              </div>
+              <span className="birthday-separator">:</span>
+              <div className="birthday-unit">
+                <span className="birthday-value">{String(atillaBirthday.seconds).padStart(2, '0')}</span>
+                <span className="birthday-unit-label">sec</span>
+              </div>
+            </div>
           </div>
         </div>
 
