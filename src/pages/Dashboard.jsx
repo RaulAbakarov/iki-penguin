@@ -49,6 +49,22 @@ function calculateBirthdayCountdown(birthdayMonth, birthdayDay) {
   return { days, hours, minutes, seconds }
 }
 
+function isTodayBirthday(birthdayMonth, birthdayDay) {
+  const now = new Date()
+  return now.getMonth() === birthdayMonth && now.getDate() === birthdayDay
+}
+
+// Generate confetti particles
+function generateConfetti(count = 50) {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    delay: Math.random() * 3,
+    duration: 2 + Math.random() * 2,
+    color: ['#e94560', '#ff6b6b', '#06d6a0', '#7b2cbf', '#ffd93d', '#6bcfff'][Math.floor(Math.random() * 6)]
+  }))
+}
+
 function Dashboard() {
   const navigate = useNavigate()
   const { identity, clearIdentity, getQuestionsForMe, getMyQuestions, loading, refreshData, isOnline, messages, sendMessage, streak } = useApp()
@@ -56,6 +72,9 @@ function Dashboard() {
   const [timeSince, setTimeSince] = useState(calculateTimeSince(START_DATE))
   const [raulBirthday, setRaulBirthday] = useState(calculateBirthdayCountdown(RAUL_BIRTHDAY.month, RAUL_BIRTHDAY.day))
   const [atillaBirthday, setAtillaBirthday] = useState(calculateBirthdayCountdown(ATILLA_BIRTHDAY.month, ATILLA_BIRTHDAY.day))
+  const [isRaulBirthday, setIsRaulBirthday] = useState(isTodayBirthday(RAUL_BIRTHDAY.month, RAUL_BIRTHDAY.day))
+  const [isAtillaBirthday, setIsAtillaBirthday] = useState(isTodayBirthday(ATILLA_BIRTHDAY.month, ATILLA_BIRTHDAY.day))
+  const [confetti] = useState(() => generateConfetti(50))
   const [message, setMessage] = useState('Fuck you')
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState('Fuck you')
@@ -65,6 +84,8 @@ function Dashboard() {
       setTimeSince(calculateTimeSince(START_DATE))
       setRaulBirthday(calculateBirthdayCountdown(RAUL_BIRTHDAY.month, RAUL_BIRTHDAY.day))
       setAtillaBirthday(calculateBirthdayCountdown(ATILLA_BIRTHDAY.month, ATILLA_BIRTHDAY.day))
+      setIsRaulBirthday(isTodayBirthday(RAUL_BIRTHDAY.month, RAUL_BIRTHDAY.day))
+      setIsAtillaBirthday(isTodayBirthday(ATILLA_BIRTHDAY.month, ATILLA_BIRTHDAY.day))
     }, 1000)
     return () => clearInterval(interval)
   }, [])
@@ -168,40 +189,83 @@ function Dashboard() {
 
         {/* Birthday Countdowns */}
         <div className="birthday-countdowns">
-          <div className="birthday-timer raul">
-            <span className="birthday-emoji">🐧</span>
-            <p className="birthday-label">Raul's Birthday</p>
-            <div className="birthday-display">
-              <div className="birthday-unit">
-                <span className="birthday-value">{raulBirthday.days}</span>
-                <span className="birthday-unit-label">days</span>
+          <div className={`birthday-timer raul ${isRaulBirthday ? 'celebrating' : ''}`}>
+            {isRaulBirthday && (
+              <div className="confetti-container">
+                {confetti.map(c => (
+                  <div
+                    key={c.id}
+                    className="confetti"
+                    style={{
+                      left: `${c.left}%`,
+                      animationDelay: `${c.delay}s`,
+                      animationDuration: `${c.duration}s`,
+                      backgroundColor: c.color
+                    }}
+                  />
+                ))}
               </div>
-              <span className="birthday-separator">:</span>
-              <div className="birthday-unit">
-                <span className="birthday-value">{String(raulBirthday.hours).padStart(2, '0')}</span>
-                <span className="birthday-unit-label">hrs</span>
+            )}
+            <span className="birthday-emoji">{isRaulBirthday ? '🎂' : '🐧'}</span>
+            <p className="birthday-label">{isRaulBirthday ? '🎉 Happy Birthday Raul! 🎉' : "Raul's Birthday"}</p>
+            {isRaulBirthday ? (
+              <div className="birthday-celebration">
+                <span className="celebration-text">Today is the day! 🥳</span>
               </div>
-              <span className="birthday-separator">:</span>
-              <div className="birthday-unit">
-                <span className="birthday-value">{String(raulBirthday.minutes).padStart(2, '0')}</span>
-                <span className="birthday-unit-label">min</span>
+            ) : (
+              <div className="birthday-display">
+                <div className="birthday-unit">
+                  <span className="birthday-value">{raulBirthday.days}</span>
+                  <span className="birthday-unit-label">days</span>
+                </div>
+                <span className="birthday-separator">:</span>
+                <div className="birthday-unit">
+                  <span className="birthday-value">{String(raulBirthday.hours).padStart(2, '0')}</span>
+                  <span className="birthday-unit-label">hrs</span>
+                </div>
+                <span className="birthday-separator">:</span>
+                <div className="birthday-unit">
+                  <span className="birthday-value">{String(raulBirthday.minutes).padStart(2, '0')}</span>
+                  <span className="birthday-unit-label">min</span>
+                </div>
+                <span className="birthday-separator">:</span>
+                <div className="birthday-unit">
+                  <span className="birthday-value">{String(raulBirthday.seconds).padStart(2, '0')}</span>
+                  <span className="birthday-unit-label">sec</span>
+                </div>
               </div>
-              <span className="birthday-separator">:</span>
-              <div className="birthday-unit">
-                <span className="birthday-value">{String(raulBirthday.seconds).padStart(2, '0')}</span>
-                <span className="birthday-unit-label">sec</span>
-              </div>
-            </div>
+            )}
           </div>
 
-          <div className="birthday-timer atilla">
-            <span className="birthday-emoji">🐧</span>
-            <p className="birthday-label">Atilla's Birthday</p>
-            <div className="birthday-display">
-              <div className="birthday-unit">
-                <span className="birthday-value">{atillaBirthday.days}</span>
-                <span className="birthday-unit-label">days</span>
+          <div className={`birthday-timer atilla ${isAtillaBirthday ? 'celebrating' : ''}`}>
+            {isAtillaBirthday && (
+              <div className="confetti-container">
+                {confetti.map(c => (
+                  <div
+                    key={c.id}
+                    className="confetti"
+                    style={{
+                      left: `${c.left}%`,
+                      animationDelay: `${c.delay}s`,
+                      animationDuration: `${c.duration}s`,
+                      backgroundColor: c.color
+                    }}
+                  />
+                ))}
               </div>
+            )}
+            <span className="birthday-emoji">{isAtillaBirthday ? '🎂' : '🐧'}</span>
+            <p className="birthday-label">{isAtillaBirthday ? '🎉 Happy Birthday Atilla! 🎉' : "Atilla's Birthday"}</p>
+            {isAtillaBirthday ? (
+              <div className="birthday-celebration">
+                <span className="celebration-text">Today is the day! 🥳</span>
+              </div>
+            ) : (
+              <div className="birthday-display">
+                <div className="birthday-unit">
+                  <span className="birthday-value">{atillaBirthday.days}</span>
+                  <span className="birthday-unit-label">days</span>
+                </div>
               <span className="birthday-separator">:</span>
               <div className="birthday-unit">
                 <span className="birthday-value">{String(atillaBirthday.hours).padStart(2, '0')}</span>
