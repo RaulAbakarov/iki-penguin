@@ -1,28 +1,37 @@
 .language-selector {
   position: fixed;
-  top: var(--space-md);
-  right: var(--space-md);
+  bottom: var(--space-lg);
+  left: var(--space-lg);
   z-index: 100;
 }
 
 .language-select {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  padding: var(--space-xs) var(--space-sm);
-  border: 1px solid var(--color-text-light);
-  border-radius: var(--radius-sm);
-  background: white;
+  font-size: 0.8rem;
+  padding: var(--space-xs) var(--space-md);
+  border: none;
+  border-radius: 20px;
+  background: rgba(233, 69, 96, 0.15);
   color: var(--color-text);
   cursor: pointer;
-  transition: border-color var(--transition-fast);
-  min-width: 100px;
+  transition: all var(--transition-fast);
+  min-width: 90px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .language-select:hover {
-  border-color: var(--color-text-muted);
+  background: rgba(233, 69, 96, 0.3);
+  transform: scale(1.05);
 }
 
 .language-select:focus {
   outline: none;
-  border-color: var(--color-chocolate);
+  background: rgba(233, 69, 96, 0.4);
+  box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.3);
+}
+
+.language-select option {
+  background: var(--color-bg-soft);
+  color: var(--color-text);
 }
