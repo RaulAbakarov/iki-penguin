@@ -207,31 +207,31 @@ function Dashboard() {
               </div>
             )}
             <span className="birthday-emoji">{isRaulBirthday ? '🎂' : '🐧'}</span>
-            <p className="birthday-label">{isRaulBirthday ? '🎉 Happy Birthday Raul! 🎉' : "Raul's Birthday"}</p>
+            <p className="birthday-label">{isRaulBirthday ? t('happyBirthdayRaul') : t('raulBirthday')}</p>
             {isRaulBirthday ? (
               <div className="birthday-celebration">
-                <span className="celebration-text">Today is the day! 🥳</span>
+                <span className="celebration-text">{t('todayIsTheDay')}</span>
               </div>
             ) : (
               <div className="birthday-display">
                 <div className="birthday-unit">
                   <span className="birthday-value">{raulBirthday.days}</span>
-                  <span className="birthday-unit-label">days</span>
+                  <span className="birthday-unit-label">{t('birthdayDays')}</span>
                 </div>
                 <span className="birthday-separator">:</span>
                 <div className="birthday-unit">
                   <span className="birthday-value">{String(raulBirthday.hours).padStart(2, '0')}</span>
-                  <span className="birthday-unit-label">hrs</span>
+                  <span className="birthday-unit-label">{t('birthdayHrs')}</span>
                 </div>
                 <span className="birthday-separator">:</span>
                 <div className="birthday-unit">
                   <span className="birthday-value">{String(raulBirthday.minutes).padStart(2, '0')}</span>
-                  <span className="birthday-unit-label">min</span>
+                  <span className="birthday-unit-label">{t('min')}</span>
                 </div>
                 <span className="birthday-separator">:</span>
                 <div className="birthday-unit">
                   <span className="birthday-value">{String(raulBirthday.seconds).padStart(2, '0')}</span>
-                  <span className="birthday-unit-label">sec</span>
+                  <span className="birthday-unit-label">{t('sec')}</span>
                 </div>
               </div>
             )}
@@ -255,31 +255,31 @@ function Dashboard() {
               </div>
             )}
             <span className="birthday-emoji">{isAtillaBirthday ? '🎂' : '🐧'}</span>
-            <p className="birthday-label">{isAtillaBirthday ? '🎉 Happy Birthday Atilla! 🎉' : "Atilla's Birthday"}</p>
+            <p className="birthday-label">{isAtillaBirthday ? t('happyBirthdayAtilla') : t('atillaBirthday')}</p>
             {isAtillaBirthday ? (
               <div className="birthday-celebration">
-                <span className="celebration-text">Today is the day! 🥳</span>
+                <span className="celebration-text">{t('todayIsTheDay')}</span>
               </div>
             ) : (
               <div className="birthday-display">
                 <div className="birthday-unit">
                   <span className="birthday-value">{atillaBirthday.days}</span>
-                  <span className="birthday-unit-label">days</span>
+                  <span className="birthday-unit-label">{t('birthdayDays')}</span>
                 </div>
               <span className="birthday-separator">:</span>
               <div className="birthday-unit">
                 <span className="birthday-value">{String(atillaBirthday.hours).padStart(2, '0')}</span>
-                <span className="birthday-unit-label">hrs</span>
+                <span className="birthday-unit-label">{t('birthdayHrs')}</span>
               </div>
               <span className="birthday-separator">:</span>
               <div className="birthday-unit">
                 <span className="birthday-value">{String(atillaBirthday.minutes).padStart(2, '0')}</span>
-                <span className="birthday-unit-label">min</span>
+                <span className="birthday-unit-label">{t('min')}</span>
               </div>
               <span className="birthday-separator">:</span>
               <div className="birthday-unit">
                 <span className="birthday-value">{String(atillaBirthday.seconds).padStart(2, '0')}</span>
-                <span className="birthday-unit-label">sec</span>
+                <span className="birthday-unit-label">{t('sec')}</span>
               </div>
             </div>
           </div>
@@ -322,7 +322,7 @@ function Dashboard() {
           >
             <span className="option-title">{t('askQuestion')}</span>
             <span className="option-hint">
-              {t('writeFor')} {identity === 'Atilla' ? 'Raul' : 'Atilla'}
+              {t('writeFor').replace('{name}', identity === 'Atilla' ? 'Raul' : 'Atilla')}
             </span>
           </button>
 
