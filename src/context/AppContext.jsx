@@ -438,10 +438,10 @@ export function AppProvider({ children }) {
       m.createdAt.split('T')[0] === today
     )
     
-    const chocolateMessaged = todayMessages.some(m => m.sender === 'Chocolate')
-    const vanillaMessaged = todayMessages.some(m => m.sender === 'Vanilla')
+    const atillaMessaged = todayMessages.some(m => m.sender === 'Atilla')
+    const raulMessaged = todayMessages.some(m => m.sender === 'Raul')
     
-    if (chocolateMessaged && vanillaMessaged) {
+    if (atillaMessaged && raulMessaged) {
       // Check if yesterday was the last update (for streak continuity)
       const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0]
       let newCount = 1
