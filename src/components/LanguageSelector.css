@@ -1,0 +1,28 @@
+.language-selector {
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 100;
+}
+
+.language-select {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-text-light);
+  border-radius: var(--radius-sm);
+  background: white;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+  min-width: 100px;
+}
+
+.language-select:hover {
+  border-color: var(--color-text-muted);
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: var(--color-chocolate);
+}

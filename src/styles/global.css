@@ -1,0 +1,179 @@
+:root {
+  /* Dark, edgy color palette */
+  --color-bg: #1a1a2e;
+  --color-bg-soft: #16213e;
+  --color-text: #eaeaea;
+  --color-text-muted: #8d99ae;
+  --color-text-light: #5c677d;
+  
+  /* Identity colors - bold and vibrant */
+  --color-chocolate: #e94560;
+  --color-chocolate-light: #ff6b6b;
+  --color-chocolate-bg: #2d1f2f;
+  
+  --color-vanilla: #7b2cbf;
+  --color-vanilla-dark: #5a189a;
+  --color-vanilla-bg: #1f1d2b;
+  
+  /* Accent colors */
+  --color-correct: #06d6a0;
+  --color-correct-bg: #1a3a2f;
+  --color-selected-wrong: #ef476f;
+  --color-selected-wrong-bg: #3a1a2f;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* Common button styles */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all var(--transition-normal);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Form elements */
+input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid var(--color-text-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-soft);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-chocolate-light);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Back link */
+.back-link {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  padding: var(--space-xs) 0;
+  margin-bottom: var(--space-lg);
+  display: inline-block;
+}
+
+.back-link:hover {
+  color: var(--color-text);
+}
+
+/* Page titles */
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: var(--space-xl);
+}
+
+/* Form groups */
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.form-group .optional {
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.form-hint {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--space-sm);
+}
+
+/* Calm messages */
+.calm-message {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+/* App loading state */
+.app-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-loading p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
