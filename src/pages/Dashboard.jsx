@@ -282,6 +282,7 @@ function Dashboard() {
                 <span className="birthday-unit-label">{t('sec')}</span>
               </div>
             </div>
+            )}
           </div>
         </div>
 
